@@ -4,30 +4,43 @@
     </head>
     <body>
         <div id="desktop">
-        <span>My Computer</span>
-        <span>Recycle Bin</span>
-        <span>Paint</span>
-        <div id="paint-window" class="window" style="width: 800px; height: 600px;">
-            <div class="window-header">
+            <div class="icon" style="top: 20px; left: 20px;" ondblclick="openWindow('my-computer')">
+                <img src="https://i.imgur.com/kRfoyRV.png" alt="My Computer">
+                <span>My Computer</span>
+            </div>
+            <div class="icon" style="top: 90px; left: 20px;" ondblclick="openWindow('recycle-bin')">
+                <img src="https://i.imgur.com/Y9ouy6N.png" alt="Recycle Bin">
+                <span>Recycle Bin</span>
+            </div>
+            <div class="icon" style="top: 160px; left: 20px;" ondblclick="openWindow('paint')">
+                <img src="https://i.imgur.com/vSqRleu.png" alt="Paint">
                 <span>Paint</span>
-                <button class="window-close" onclick="closeWindow('paint')">X</button>
             </div>
-            <div class="paint-tools">
-                <div class="color-palette">
-                    <div class="color-option" style="background-color: #000000;"></div>
-                    <div class="color-option" style="background-color: #FFFFFF;"></div>
-                    <div class="color-option" style="background-color: #FF0000;"></div>
-                    <div class="color-option" style="background-color: #00FF00;"></div>
-                    <div class="color-option" style="background-color: #0000FF;"></div>
-                    <div class="color-option" style="background-color: #FFFF00;"></div>
-                    <div class="color-option" style="background-color: #00FFFF;"></div>
-                    <div class="color-option" style="background-color: #FF00FF;"></div>
-                    <div class="color-option" style="background-color: #808080;"></div>
-                    <div class="color-option" style="background-color: #C0C0C0;"></div>
-                    <div class="color-option" style="background-color: #800000;"></div>
-                    <div class="color-option" style="background-color: #808000;"></div>
+            
+            <div id="paint-window" class="window" style="width: 800px; height: 600px;">
+                <div class="window-header">
+                    <span>Paint</span>
+                    <button class="window-close" onclick="closeWindow('paint')">X</button>
                 </div>
+                <div class="paint-tools">
+                    <div class="paint-tool active-tool" id="pencil-tool" style="background-image: url('https://i.imgur.com/FvNyefH.png'); background-size: cover;"></div>
+                    <div class="paint-tool" id="eraser-tool" style="background-image: url('https://i.imgur.com/RKkMKOM.png'); background-size: cover;"></div>
+                    <input type="color" id="color-picker" style="margin-left: 10px;">
+                    <div class="color-palette">
+                        <div class="color-option" style="background-color: #000000;"></div>
+                        <div class="color-option" style="background-color: #FFFFFF;"></div>
+                        <div class="color-option" style="background-color: #FF0000;"></div>
+                        <div class="color-option" style="background-color: #00FF00;"></div>
+                        <div class="color-option" style="background-color: #0000FF;"></div>
+                        <div class="color-option" style="background-color: #FFFF00;"></div>
+                        <div class="color-option" style="background-color: #00FFFF;"></div>
+                        <div class="color-option" style="background-color: #FF00FF;"></div>
+                        <div class="color-option" style="background-color: #808080;"></div>
+                        <div class="color-option" style="background-color: #C0C0C0;"></div>
+                        <div class="color-option" style="background-color: #800000;"></div>
+                        <div class="color-option" style="background-color: #808000;"></div>
+                    </div>
+                </div>
+                <canvas id="paint-canvas" width="780" height="520"></canvas>
             </div>
-            <canvas id="paint-canvas" width="780" height="520"></canvas>
-        </div>
     </body></html>
