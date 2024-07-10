@@ -43,4 +43,57 @@
                 </div>
                 <canvas id="paint-canvas" width="780" height="520"></canvas>
             </div>
+            <div id="my-computer-window" class="window" style="width: 500px; height: 400px;">
+                <div class="window-header">
+                    <span>My Computer</span>
+                    <button class="window-close" onclick="closeWindow('my-computer')">X</button>
+                </div>
+                <div id="my-computer-content">
+                    <div class="folder">
+                        <img src="https://i.imgur.com/kRfoyRV.png" alt="C Drive">
+                        <span>Local Disk (C:)</span>
+                    </div>
+                    <div class="folder">
+                        <img src="https://i.imgur.com/kRfoyRV.png" alt="D Drive">
+                        <span>DVD Drive (D:)</span>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="recycle-bin-window" class="window" style="width: 500px; height: 400px;">
+                <div class="window-header">
+                    <span>Recycle Bin</span>
+                    <button class="window-close" onclick="closeWindow('recycle-bin')">X</button>
+                </div>
+                <div id="recycle-bin-content">
+                    <p>The Recycle Bin is empty.</p>
+                </div>
+            </div>
+    
+            <div id="taskbar">
+                <button id="start-button"></button>
+            </div>
+    
+            <div id="start-menu">
+                <div class="start-item" onclick="openWindow('my-computer')">My Computer</div>
+                <div class="start-item" onclick="openWindow('recycle-bin')">Recycle Bin</div>
+                <div class="start-item" onclick="openWindow('paint')">Paint</div>
+                <div class="start-item" onclick="shutDown()">Shut Down</div>
+            </div>
+        </div>
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const startMenu = document.getElementById('start-menu');
+
+        startButton.addEventListener('click', () => {
+            startMenu.style.display = startMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!startButton.contains(e.target) && !startMenu.contains(e.target)) {
+                startMenu.style.display = 'none';
+            }
+        });
+    </script>
     </body></html>
