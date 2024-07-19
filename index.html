@@ -1,238 +1,370 @@
 <html>
     <head>
-    <title>Windows XP Simulator</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Tahoma', sans-serif;
-            overflow: hidden;
-        }
-        #desktop {
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.imgur.com/Zk6TR5k.jpg');
-            background-size: cover;
-            position: relative;
-        }
-        #taskbar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: linear-gradient(to bottom, #2A7FFF 0%, #0054E3 100%);
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            z-index: 1000;
-        }
-        #start-button {
-            background: url('https://i.imgur.com/vyq1bRD.png') no-repeat;
-            width: 100px;
-            height: 28px;
-            border: none;
-            cursor: pointer;
-        }
-        .icon {
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            text-align: center;
-            cursor: pointer;
-        }
-        .icon img {
-            width: 32px;
-            height: 32px;
-        }
-        .icon span {
-            font-size: 12px;
-            color: white;
-            text-shadow: 1px 1px 1px black;
-        }
-        .window {
-            position: absolute;
-            background-color: #ECE9D8;
-            border: 1px solid #0054E3;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            display: none;
-            resize: both;
-            overflow: auto;
-        }
-        .window-header {
-            background: linear-gradient(to bottom, #0058E6 0%, #003CE6 100%);
-            color: white;
-            padding: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: move;
-        }
-        .window-close {
-            background: none;
-            border: none;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        #paint-canvas {
-            margin: 10px;
-            border: 1px solid #999;
-            cursor: crosshair;
-        }
-        .paint-tools {
-            display: flex;
-            justify-content: flex-start;
-            padding: 5px;
-            background-color: #F0F0F0;
-        }
-        .paint-tool {
-            width: 30px;
-            height: 30px;
-            margin-right: 5px;
-            cursor: pointer;
-            border: 1px solid #999;
-        }
-        #start-menu {
-            position: absolute;
-            bottom: 30px;
-            left: 0;
-            width: 300px;
-            background-color: #ECE9D8;
-            border: 1px solid #0054E3;
-            display: none;
-            z-index: 1001;
-        }
-        .start-item {
-            padding: 10px;
-            cursor: pointer;
-        }
-        .start-item:hover {
-            background-color: #316AC5;
-            color: white;
-        }
-        #my-computer-content, #recycle-bin-content {
-            padding: 10px;
-        }
-        .folder {
-            display: inline-block;
-            margin: 10px;
-            text-align: center;
-        }
-        .folder img {
-            width: 48px;
-            height: 48px;
-        }
-        .color-palette {
-            display: flex;
-            flex-wrap: wrap;
-            width: 160px;
-            margin-top: 10px;
-        }
-        .color-option {
-            width: 20px;
-            height: 20px;
-            margin: 2px;
-            cursor: pointer;
-        }
-        .active-tool {
-            border: 2px solid #0054E3;
-        }
-    </style>
-    </head>
-    <body>
-        <div id="desktop">
-            <div class="icon" style="top: 20px; left: 20px;" ondblclick="openWindow('my-computer')">
-                <img src="https://i.imgur.com/kRfoyRV.png" alt="My Computer">
-                <span>My Computer</span>
-            </div>
-            <div class="icon" style="top: 90px; left: 20px;" ondblclick="openWindow('recycle-bin')">
-                <img src="https://i.imgur.com/Y9ouy6N.png" alt="Recycle Bin">
-                <span>Recycle Bin</span>
-            </div>
-            <div class="icon" style="top: 160px; left: 20px;" ondblclick="openWindow('paint')">
-                <img src="https://i.imgur.com/vSqRleu.png" alt="Paint">
+        <title>Windows XP Simulator</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Tahoma', sans-serif;
+        overflow: hidden;
+    }
+    #desktop {
+        width: 100%;
+        height: 100%;
+        background-image: url('https://i.imgur.com/Zk6TR5k.jpg');
+        background-size: cover;
+        position: relative;
+    }
+    #taskbar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 30px;
+        background: linear-gradient(to bottom, #2A7FFF 0%, #0054E3 100%);
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        z-index: 1000;
+    }
+    #start-button {
+        background: url('https://i.imgur.com/vyq1bRD.png') no-repeat;
+        width: 100px;
+        height: 28px;
+        border: none;
+        cursor: pointer;
+    }
+    .icon {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        text-align: center;
+        cursor: pointer;
+    }
+    .icon img {
+        width: 32px;
+        height: 32px;
+    }
+    .icon span {
+        font-size: 12px;
+        color: white;
+        text-shadow: 1px 1px 1px black;
+    }
+    .window {
+        position: absolute;
+        background-color: #ECE9D8;
+        border: 1px solid #0054E3;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        display: none;
+        resize: both;
+        overflow: auto;
+    }
+    .window-header {
+        background: linear-gradient(to bottom, #0058E6 0%, #003CE6 100%);
+        color: white;
+        padding: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: move;
+    }
+    .window-close {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #paint-canvas {
+        margin: 10px;
+        border: 1px solid #999;
+        cursor: crosshair;
+    }
+    .paint-tools {
+        display: flex;
+        justify-content: flex-start;
+        padding: 5px;
+        background-color: #F0F0F0;
+    }
+    .paint-tool {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        cursor: pointer;
+        border: 1px solid #999;
+    }
+    #start-menu {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 300px;
+        background-color: #ECE9D8;
+        border: 1px solid #0054E3;
+        display: none;
+        z-index: 1001;
+    }
+    .start-item {
+        padding: 10px;
+        cursor: pointer;
+    }
+    .start-item:hover {
+        background-color: #316AC5;
+        color: white;
+    }
+    #my-computer-content, #recycle-bin-content {
+        padding: 10px;
+    }
+    .folder {
+        display: inline-block;
+        margin: 10px;
+        text-align: center;
+    }
+    .folder img {
+        width: 48px;
+        height: 48px;
+    }
+    .color-palette {
+        display: flex;
+        flex-wrap: wrap;
+        width: 160px;
+        margin-top: 10px;
+    }
+    .color-option {
+        width: 20px;
+        height: 20px;
+        margin: 2px;
+        cursor: pointer;
+    }
+    .active-tool {
+        border: 2px solid #0054E3;
+    }
+</style>
+</head>
+<body>
+    <div id="desktop">
+        <div class="icon" style="top: 20px; left: 20px;" ondblclick="openWindow('my-computer')">
+            <img src="https://i.imgur.com/kRfoyRV.png" alt="My Computer">
+            <span>My Computer</span>
+        </div>
+        <div class="icon" style="top: 90px; left: 20px;" ondblclick="openWindow('recycle-bin')">
+            <img src="https://i.imgur.com/Y9ouy6N.png" alt="Recycle Bin">
+            <span>Recycle Bin</span>
+        </div>
+        <div class="icon" style="top: 160px; left: 20px;" ondblclick="openWindow('paint')">
+            <img src="https://i.imgur.com/vSqRleu.png" alt="Paint">
+            <span>Paint</span>
+        </div>
+        
+        <div id="paint-window" class="window" style="width: 800px; height: 600px;">
+            <div class="window-header">
                 <span>Paint</span>
+                <button class="window-close" onclick="closeWindow('paint')">X</button>
             </div>
-            
-            <div id="paint-window" class="window" style="width: 800px; height: 600px;">
-                <div class="window-header">
-                    <span>Paint</span>
-                    <button class="window-close" onclick="closeWindow('paint')">X</button>
-                </div>
-                <div class="paint-tools">
-                    <div class="paint-tool active-tool" id="pencil-tool" style="background-image: url('https://i.imgur.com/FvNyefH.png'); background-size: cover;"></div>
-                    <div class="paint-tool" id="eraser-tool" style="background-image: url('https://i.imgur.com/RKkMKOM.png'); background-size: cover;"></div>
-                    <input type="color" id="color-picker" style="margin-left: 10px;">
-                    <div class="color-palette">
-                        <div class="color-option" style="background-color: #000000;"></div>
-                        <div class="color-option" style="background-color: #FFFFFF;"></div>
-                        <div class="color-option" style="background-color: #FF0000;"></div>
-                        <div class="color-option" style="background-color: #00FF00;"></div>
-                        <div class="color-option" style="background-color: #0000FF;"></div>
-                        <div class="color-option" style="background-color: #FFFF00;"></div>
-                        <div class="color-option" style="background-color: #00FFFF;"></div>
-                        <div class="color-option" style="background-color: #FF00FF;"></div>
-                        <div class="color-option" style="background-color: #808080;"></div>
-                        <div class="color-option" style="background-color: #C0C0C0;"></div>
-                        <div class="color-option" style="background-color: #800000;"></div>
-                        <div class="color-option" style="background-color: #808000;"></div>
-                    </div>
-                </div>
-                <canvas id="paint-canvas" width="780" height="520"></canvas>
-            </div>
-            <div id="my-computer-window" class="window" style="width: 500px; height: 400px;">
-                <div class="window-header">
-                    <span>My Computer</span>
-                    <button class="window-close" onclick="closeWindow('my-computer')">X</button>
-                </div>
-                <div id="my-computer-content">
-                    <div class="folder">
-                        <img src="https://i.imgur.com/kRfoyRV.png" alt="C Drive">
-                        <span>Local Disk (C:)</span>
-                    </div>
-                    <div class="folder">
-                        <img src="https://i.imgur.com/kRfoyRV.png" alt="D Drive">
-                        <span>DVD Drive (D:)</span>
-                    </div>
+            <div class="paint-tools">
+                <div class="paint-tool active-tool" id="pencil-tool" style="background-image: url('https://i.imgur.com/FvNyefH.png'); background-size: cover;"></div>
+                <div class="paint-tool" id="eraser-tool" style="background-image: url('https://i.imgur.com/RKkMKOM.png'); background-size: cover;"></div>
+                <input type="color" id="color-picker" style="margin-left: 10px;">
+                <div class="color-palette">
+                    <div class="color-option" style="background-color: #000000;"></div>
+                    <div class="color-option" style="background-color: #FFFFFF;"></div>
+                    <div class="color-option" style="background-color: #FF0000;"></div>
+                    <div class="color-option" style="background-color: #00FF00;"></div>
+                    <div class="color-option" style="background-color: #0000FF;"></div>
+                    <div class="color-option" style="background-color: #FFFF00;"></div>
+                    <div class="color-option" style="background-color: #00FFFF;"></div>
+                    <div class="color-option" style="background-color: #FF00FF;"></div>
+                    <div class="color-option" style="background-color: #808080;"></div>
+                    <div class="color-option" style="background-color: #C0C0C0;"></div>
+                    <div class="color-option" style="background-color: #800000;"></div>
+                    <div class="color-option" style="background-color: #808000;"></div>
                 </div>
             </div>
-    
-            <div id="recycle-bin-window" class="window" style="width: 500px; height: 400px;">
-                <div class="window-header">
-                    <span>Recycle Bin</span>
-                    <button class="window-close" onclick="closeWindow('recycle-bin')">X</button>
-                </div>
-                <div id="recycle-bin-content">
-                    <p>The Recycle Bin is empty.</p>
-                </div>
+            <canvas id="paint-canvas" width="780" height="520"></canvas>
+        </div>
+
+        <div id="my-computer-window" class="window" style="width: 500px; height: 400px;">
+            <div class="window-header">
+                <span>My Computer</span>
+                <button class="window-close" onclick="closeWindow('my-computer')">X</button>
             </div>
-    
-            <div id="taskbar">
-                <button id="start-button"></button>
-            </div>
-    
-            <div id="start-menu">
-                <div class="start-item" onclick="openWindow('my-computer')">My Computer</div>
-                <div class="start-item" onclick="openWindow('recycle-bin')">Recycle Bin</div>
-                <div class="start-item" onclick="openWindow('paint')">Paint</div>
-                <div class="start-item" onclick="shutDown()">Shut Down</div>
+            <div id="my-computer-content">
+                <div class="folder">
+                    <img src="https://i.imgur.com/kRfoyRV.png" alt="C Drive">
+                    <span>Local Disk (C:)</span>
+                </div>
+                <div class="folder">
+                    <img src="https://i.imgur.com/kRfoyRV.png" alt="D Drive">
+                    <span>DVD Drive (D:)</span>
+                </div>
             </div>
         </div>
 
-    <script>
-        const startButton = document.getElementById('start-button');
-        const startMenu = document.getElementById('start-menu');
+        <div id="recycle-bin-window" class="window" style="width: 500px; height: 400px;">
+            <div class="window-header">
+                <span>Recycle Bin</span>
+                <button class="window-close" onclick="closeWindow('recycle-bin')">X</button>
+            </div>
+            <div id="recycle-bin-content">
+                <p>The Recycle Bin is empty.</p>
+            </div>
+        </div>
 
-        startButton.addEventListener('click', () => {
-            startMenu.style.display = startMenu.style.display === 'none' ? 'block' : 'none';
+        <div id="taskbar">
+            <button id="start-button"></button>
+        </div>
+
+        <div id="start-menu">
+            <div class="start-item" onclick="openWindow('my-computer')">My Computer</div>
+            <div class="start-item" onclick="openWindow('recycle-bin')">Recycle Bin</div>
+            <div class="start-item" onclick="openWindow('paint')">Paint</div>
+            <div class="start-item" onclick="shutDown()">Shut Down</div>
+        </div>
+    </div>
+
+<script>
+    const startButton = document.getElementById('start-button');
+    const startMenu = document.getElementById('start-menu');
+    const canvas = document.getElementById('paint-canvas');
+    const ctx = canvas.getContext('2d');
+    const pencilTool = document.getElementById('pencil-tool');
+    const eraserTool = document.getElementById('eraser-tool');
+    const colorPicker = document.getElementById('color-picker');
+    const colorOptions = document.querySelectorAll('.color-option');
+
+    let isDrawing = false;
+    let currentTool = 'pencil';
+    let currentColor = '#000000';
+
+    // Start Menu
+    startButton.addEventListener('click', () => {
+        startMenu.style.display = startMenu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!startButton.contains(e.target) && !startMenu.contains(e.target)) {
+            startMenu.style.display = 'none';
+        }
+    });
+
+    // Window Management
+    function openWindow(id) {
+        document.getElementById(`${id}-window`).style.display = 'block';
+        startMenu.style.display = 'none';
+    }
+
+    function closeWindow(id) {
+        document.getElementById(`${id}-window`).style.display = 'none';
+    }
+
+    function shutDown() {
+        if (confirm('Are you sure you want to shut down?')) {
+            document.body.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #000; color: #fff; font-size: 24px;">It is now safe to turn off your computer.</div>';
+        }
+    }
+
+    // Make windows draggable
+    const windows = document.querySelectorAll('.window');
+    windows.forEach(win => {
+        const header = win.querySelector('.window-header');
+        let isDragging = false;
+        let dragOffsetX, dragOffsetY;
+
+        header.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            dragOffsetX = e.clientX - win.offsetLeft;
+            dragOffsetY = e.clientY - win.offsetTop;
         });
 
-        document.addEventListener('click', (e) => {
-            if (!startButton.contains(e.target) && !startMenu.contains(e.target)) {
-                startMenu.style.display = 'none';
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                win.style.left = (e.clientX - dragOffsetX) + 'px';
+                win.style.top = (e.clientY - dragOffsetY) + 'px';
             }
         });
-    </script>
-    </body></html>
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+
+    // Paint functionality
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+
+    pencilTool.addEventListener('click', () => {
+        currentTool = 'pencil';
+        updateActiveTool(pencilTool);
+    });
+    eraserTool.addEventListener('click', () => {
+        currentTool = 'eraser';
+        updateActiveTool(eraserTool);
+    });
+
+    colorPicker.addEventListener('input', (e) => {
+        currentColor = e.target.value;
+    });
+
+    colorOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            currentColor = e.target.style.backgroundColor;
+            colorPicker.value = rgbToHex(currentColor);
+        });
+    });
+
+    function startDrawing(e) {
+        isDrawing = true;
+        draw(e);
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        ctx.lineWidth = currentTool === 'eraser' ? 20 : 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = currentTool === 'eraser' ? '#FFFFFF' : currentColor;
+
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+        ctx.beginPath();
+    }
+
+    function updateActiveTool(tool) {
+        pencilTool.classList.remove('active-tool');
+        eraserTool.classList.remove('active-tool');
+        tool.classList.add('active-tool');
+    }
+
+    function rgbToHex(rgb) {
+        // Choose correct separator
+        let sep = rgb.indexOf(",") > -1 ? "," : " ";
+        // Turn "rgb(r,g,b)" into [r,g,b]
+        rgb = rgb.substr(4).split(")")[0].split(sep);
+
+        let r = (+rgb[0]).toString(16),
+            g = (+rgb[1]).toString(16),
+            b = (+rgb[2]).toString(16);
+
+        if (r.length == 1)
+            r = "0" + r;
+        if (g.length == 1)
+            g = "0" + g;
+        if (b.length == 1)
+            b = "0" + b;
+
+        return "#" + r + g + b;
+    }
+</script>
+</body></html>
